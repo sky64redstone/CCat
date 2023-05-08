@@ -38,6 +38,7 @@ namespace CCat {
 					if (sf::Mouse::isButtonPressed(sf::Mouse::Left)) {
 						button.setOutlineColor(clickColor);
 						button.setFillColor(clickColor);
+						function("");
 					}
 					else {
 						if (hoverOutline) {
@@ -55,6 +56,10 @@ namespace CCat {
 				}
 			}
 		}
+		
+		void addFunction(std::function<void(std::string)> action) {
+			function = action;
+		}	
 	private:
 		sf::RenderWindow& window;
 		sf::RectangleShape button;
@@ -63,12 +68,13 @@ namespace CCat {
 		sf::Color defaultColor;
 		sf::Color hoverColor;
 		sf::Color clickColor;
+		std::function<void(std::string)> function; // TODO: give some better parameters
 		bool hoverOutline;
 	};
 
 	// Like in VS the buttons "File", "Edit", "View", ...
 	export class MenuButton {
-
+		
 	};
 
 	// Like in VS the buttons in "File" -> "Clone Repository...", "Start Window", ...
