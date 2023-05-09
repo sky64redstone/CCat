@@ -75,13 +75,13 @@ namespace CCat {
 
 	// Like in VS the buttons "File", "Edit", "View", ...
 	export class MenuButton {
-		
 	public:
 		MenuButton(sf::RenderWindow& window, sf::Vector2f pos, sf::Vector2f size) : window(window), pos(pos), size(size) {
 			button = sf::RectangleShape(size);
 			button.setPosition(pos);
 			itemList = sf::RectangleShape({ 0, 0 });
 			itemList.setPosition({ pos.x, pos.y + size.y });
+			active = false;
 		}
 
 		void setDefaultColor(sf::Color color) {
@@ -99,6 +99,13 @@ namespace CCat {
 
 		void draw() {
 			window.draw(button);
+			// if the menu item list should be drawn
+			if (active) {
+				window.draw(itemList);
+				for (auto item : items) {
+					item.draw(window);
+				}
+			}
 		}
 
 		void onEvent(sf::Event event) {
@@ -108,6 +115,7 @@ namespace CCat {
 					if (sf::Mouse::isButtonPressed(sf::Mouse::Left)) {
 						button.setOutlineColor(clickColor);
 						button.setFillColor(clickColor);
+						active = !active;
 					}
 					else {
 						if (hoverOutline) {
@@ -122,6 +130,9 @@ namespace CCat {
 				else {
 					button.setOutlineColor(defaultColor);
 					button.setFillColor(defaultColor);
+					if (sf::Mouse::isButtonPressed(sf::Mouse::Left)) {
+						active = false;
+					}
 				}
 			}
 		}
@@ -140,6 +151,7 @@ namespace CCat {
 		sf::Color clickColor;
 		std::vector<MenuItem> items;
 		bool hoverOutline;
+		bool active;
 	};
 
 	// Like in VS the buttons in "File" -> "Clone Repository...", "Start Window", ...
@@ -149,7 +161,7 @@ namespace CCat {
 			return size;
 		}
 
-		MenuItem(sf::RenderWindow& window, sf::Vector2f pos, sf::Vector2f size) : window(window), pos(pos), size(size) {
+		MenuItem(sf::Vector2f pos, sf::Vector2f size) : pos(pos), size(size) {
 			button = sf::RectangleShape(size);
 			button.setPosition(pos);
 		}
@@ -167,7 +179,7 @@ namespace CCat {
 			clickColor = color;
 		}
 
-		void draw() {
+		void draw(sf::RenderWindow& window) {
 			window.draw(button);
 		}
 
@@ -198,7 +210,6 @@ namespace CCat {
 		}
 
 		private:
-			sf::RenderWindow& window;
 			sf::RectangleShape button;
 			sf::Vector2f pos; 
 			sf::Vector2f size;
