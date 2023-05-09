@@ -157,10 +157,6 @@ namespace CCat {
 	// Like in VS the buttons in "File" -> "Clone Repository...", "Start Window", ...
 	export class MenuItem {
 		public:
-		sf::Vector2f getSize() {
-			return size;
-		}
-
 		MenuItem(sf::Vector2f pos, sf::Vector2f size) : pos(pos), size(size) {
 			button = sf::RectangleShape(size);
 			button.setPosition(pos);
@@ -181,6 +177,10 @@ namespace CCat {
 
 		void draw(sf::RenderWindow& window) {
 			window.draw(button);
+		}
+		
+		sf::Vector2f getSize() {
+			return size;
 		}
 
 		void onEvent(sf::Event event) {
@@ -220,7 +220,14 @@ namespace CCat {
 	};
 
 	// Like in VS the buttons in "File" -> "New   >", "Open   >", ...
-	export class MenuItemList {
-
+	export class MenuItemList : MenuItem {
+	public:
+		MenuItemList(sf::Vector2f pos, sf::Vector2f size) : MenuItem(pos, size) {
+			
+		}
+		
+		void draw(sf::RenderWindow& window) {
+			super.draw(window);
+		}
 	};
 }
