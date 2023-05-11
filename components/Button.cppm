@@ -2,7 +2,7 @@ module;
 
 #include <iostream>
 #include <functional>
-#include <SFML/Graphics>
+#include <SFML/Graphics.hpp>
 
 export module CCat : Button;
 
@@ -47,6 +47,10 @@ namespace CCat {
             // Set clickOutlineColor
         }
     
+        void onClick(std::function& function) {
+            // Set action
+        }
+        
     private:
         sf::RenderWindow& window;
         sf::Rectangle button;
@@ -61,12 +65,13 @@ namespace CCat {
         sf::Color& clickFillColor;
         sf::Color& clickOutlineColor;
         
-        std::function
+        std::function action;
         
         void onMouseMovedEvent(sf::Event& event) {
             // if button contains mousePos:
                 // if mouseButton is pressed
                     // colors = click
+                    // action();
                 // else
                     // color = hover
             // else
