@@ -18,8 +18,8 @@ namespace CCat {
             // Set text
             // Set font
             // Set Color
-             // Set characterSize
-             // Set Position to the center of the Button
+            // Set characterSize
+            // Set Position to the center of the Button
         } 
         
         void onEvent(sf::Event& event) {
