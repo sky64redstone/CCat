@@ -1,6 +1,7 @@
 module;
 
 #include <iostream>
+#include <functional>
 #include <SFML/Graphics>
 
 export module CCat : Button;
@@ -32,7 +33,18 @@ namespace CCat {
         }
         
         void defaultColor(sf::Color& fillColor, sf::Color& outlineColor) {
-            // set
+            // Set defaultFillColor
+            // Set defaultOutlineColor
+        }
+        
+        void hoverColor(sf::Color& fillColor, sf::Color& outlineColor) {
+            // Set hoverFillColor
+            // Set hoverOutlineColor
+        }
+        
+        void clickColor(sf::Color& fillColor, sf::Color& outlineColor) {
+            // Set clickFillColor
+            // Set clickOutlineColor
         }
     
     private:
@@ -40,9 +52,25 @@ namespace CCat {
         sf::Rectangle button;
         sf::Text label;
         
+        sf::Color& defaultFillColor;
+        sf::Color& defaultOutlineColor;
+        
+        sf::Color& hoverFillColor;
+        sf::Color& hoverOutlineColor;
+        
+        sf::Color& clickFillColor;
+        sf::Color& clickOutlineColor;
+        
+        std::function
+        
         void onMouseMovedEvent(sf::Event& event) {
             // if button contains mousePos:
-                // 
+                // if mouseButton is pressed
+                    // colors = click
+                // else
+                    // color = hover
+            // else
+                // color = default
         }
-  }
+    }
 }
