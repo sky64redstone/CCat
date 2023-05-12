@@ -13,19 +13,17 @@ namespace CCat {
         }
         
         void draw() {
-            if (pixelSize == 1) {
+            if (pixelSize >= 1) {
                 for (auto y = 0; y < 256; y++) {
                     for (auto x = 0; x < 256; x++) {
-                        sf::Vertex point(sf::Vector2f(x + pos.x, y + pos.y), sf::Color(x, y, blue));
-                        window.draw(&point, 1, sf::Points);
-                    }
-                }
-            } else if (pixelSize > 1) {
-                for (auto y = 0; y < 256; y++) {
-                    for (auto x = 0; x < 256; x++) {
-                        sf::RectangleShape point({ x + pos.x, y + pos.y }, { pixelSize, pixelSize });
-                        point.setFillColor(sf::Color(x, y, blue));
-                        window.draw(point);
+                        if (pixelSize == 1) {
+                            sf::Vertex point(sf::Vector2f(x + pos.x, y + pos.y), sf::Color(x, y, blue));
+                            window.draw(&point, 1, sf::Points);
+                        } else {
+                            sf::RectangleShape point({ x + pos.x, y + pos.y }, { pixelSize, pixelSize });
+                            point.setFillColor(sf::Color(x, y, blue));
+                            window.draw(point);
+                        }
                     }
                 }
             } else {
