@@ -45,7 +45,7 @@ namespace CCat {
         sf::FLoatRect bounds; // bounds of the color picker field
         int pixelSize;
         int lastRGB; // {1111}AlphaValue {0100}Red {0000}Green {0001}Blue => 1111_0100_0000_0001
-        int blue;
+        int blue, alpha = 255;
         
         void onMouseMoveEvent(sf::Event event) {
             
