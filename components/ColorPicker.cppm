@@ -9,7 +9,7 @@ namespace CCat {
     export class ColorPicker {
     public:
         ColorPicker(sf::RenderWindow& window, sf::Vector2f pos, int pixelSize = 1) : window(window), pos(pos), pixelSize(pixelSize) {
-            
+            bounds = sf::Rect(pos, { 256, 256 });
         }
         
         void draw() {
@@ -29,7 +29,7 @@ namespace CCat {
                     }
                 }
             } else {
-                std::cout << "Error found: Wrong pixelSize[1-...]! pixelSize = " << pixelSize;
+                std::cout << "Error found: Wrong pixelSize[1-...]! pixelSize = " << pixelSize << "\n";
             }
         }
         
@@ -42,12 +42,17 @@ namespace CCat {
     private:
         sf::RenderWindow& window;
         sf::Vector2f pos;
+        sf::Rect bounds;
         int pixelSize;
         int lastRGB;
         int blue;
         
         void onMouseMoveEvent(sf::Event event) {
-            
+            int mouseX = event.mouseMove.x;
+            int mouseY = event.mouseMove.y;
+            if (bounds.contains({ mouseX, mouseY })) {
+                
+            }
         }
         
         void onMouseButtonEvent(sf::Event event) {
