@@ -9,7 +9,7 @@ namespace CCat {
     export class ColorPicker {
     public:
         ColorPicker(sf::RenderWindow& window, sf::Vector2f pos, int pixelSize = 1) : window(window), pos(pos), pixelSize(pixelSize) {
-            bounds = sf::Rect(pos, { 256, 256 });
+            bounds = sf::Rect(pos, { 256 * pixelSize, 256 * pixelSize }); // TODO size
         }
         
         void draw() {
@@ -42,21 +42,25 @@ namespace CCat {
     private:
         sf::RenderWindow& window;
         sf::Vector2f pos;
-        sf::Rect bounds;
+        sf::FLoatRect bounds; // bounds of the color picker field
         int pixelSize;
-        int lastRGB;
+        int lastRGB; // {1111}AlphaValue {0100}Red {0000}Green {0001}Blue => 1111_0100_0000_0001
         int blue;
         
         void onMouseMoveEvent(sf::Event event) {
-            int mouseX = event.mouseMove.x;
-            int mouseY = event.mouseMove.y;
-            if (bounds.contains({ mouseX, mouseY })) {
-                
-            }
+            
         }
         
         void onMouseButtonEvent(sf::Event event) {
-            
+            int mouseX = event.mouseMove.x;
+            int mouseY = event.mouseMove.y;
+            if (pixelSize == 1 /*<-for removal after the check with the pixel index*/&& sf::Mouse::isButtonPressed(sf::Mouse::Left)) {   
+                if (bounds.contains({ mouseX, mouseY })) {
+                    float red = (mouseX - pos.x) / pixelSize; // TODO check if it works for pixelSize > 1 
+                    float green = (mouseY - pos.y) / pixelSize; // TODO check if it works for pixelSize > 1
+                    lastRGB = (alpha << 24) | (red << 16) | (green << 8) | blue;
+                }
+            }
         }
     }
 }
